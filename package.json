@@ -1,0 +1,10 @@
+{
+  "name": "data-stream-transport",
+  "scripts": {
+    "clear": "sh ./scripts/clear.sh"
+  },
+  "packageManager": "pnpm@10.10.0",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

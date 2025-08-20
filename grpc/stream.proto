@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package streaming;
+
+service StreamService {
+  rpc ServerStream (StreamRequest) returns (stream StreamResponse);
+}
+
+message StreamRequest {
+  string client_id = 1;
+}
+
+message StreamResponse {
+  string message = 1;
+}

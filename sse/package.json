@@ -1,0 +1,11 @@
+{
+  "name": "sse",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {},
+  "packageManager": "pnpm@10.10.0",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "eventsource": "^4.0.0"
+  }
+}
