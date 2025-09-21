@@ -54,27 +54,32 @@ class AxiosXHRStreamRequest<TOutput, TParams extends AnyParams> extends BaseStre
               ...this.requiredServiceParams,
               // 注入 onDownloadProgress 回调
               onDownloadProgress: (event: ProgressEvent) => {
-                const { responseText } = event.target as XMLHttpRequest;
-                const chunk = responseText.slice(lastIndex);
-                lastIndex = responseText.length;
-                // 数据“投喂”给流
-                //
-                // 使用 new TextEncoder().encode(chunk) 的原因是：
-                // ReadableStream 的 controller.enqueue() 方法期望接收的是 Uint8Array 类型的数据（即字节流），
-                // 而不是 JavaScript 的字符串（string）。
-                //
-                // 数据源的格式：在 onDownloadProgress 回调中，
-                // 我们从 XMLHttpRequest 的 responseText 中截取出的 chunk 是一个标准的 JavaScript 字符串。
-                //
-                // 流的目标格式： Web API 中的流（Streams API）被设计为一种通用的数据传输机制，
-                // 它们不仅可以传输文本，还可以传输图片、视频等任何二进制数据。
-                // 因此，流在底层处理的是字节（bytes），而不是特定于语言的字符串。
-                // Uint8Array 正是 JavaScript 中用来表示字节数组的标准类型。
-                //
-                // 编码转换的桥梁： TextEncoder 就是连接这两者之间的桥梁。它扮演着“编码器”的角色，
-                // 其 encode() 方法可以将一个 JavaScript 字符串按照 UTF-8 编码规则，
-                // 转换成一个 Uint8Array 字节数组。
-                controller.enqueue(new TextEncoder().encode(chunk));
+                const xhr = event?.target;
+                if (xhr instanceof XMLHttpRequest) {
+                  const { responseText } = xhr;
+                  const chunk = responseText.slice(lastIndex);
+                  lastIndex = responseText.length;
+                  // 数据“投喂”给流
+                  //
+                  // 使用 new TextEncoder().encode(chunk) 的原因是：
+                  // ReadableStream 的 controller.enqueue() 方法期望接收的是 Uint8Array 类型的数据（即字节流），
+                  // 而不是 JavaScript 的字符串（string）。
+                  //
+                  // 数据源的格式：在 onDownloadProgress 回调中，
+                  // 我们从 XMLHttpRequest 的 responseText 中截取出的 chunk 是一个标准的 JavaScript 字符串。
+                  //
+                  // 流的目标格式： Web API 中的流（Streams API）被设计为一种通用的数据传输机制，
+                  // 它们不仅可以传输文本，还可以传输图片、视频等任何二进制数据。
+                  // 因此，流在底层处理的是字节（bytes），而不是特定于语言的字符串。
+                  // Uint8Array 正是 JavaScript 中用来表示字节数组的标准类型。
+                  //
+                  // 编码转换的桥梁： TextEncoder 就是连接这两者之间的桥梁。它扮演着“编码器”的角色，
+                  // 其 encode() 方法可以将一个 JavaScript 字符串按照 UTF-8 编码规则，
+                  // 转换成一个 Uint8Array 字节数组。
+                  controller.enqueue(new TextEncoder().encode(chunk));
+                } else {
+                  controller.error(new Error('Unexpected event target type in onDownloadProgress.'));
+                }
               },
             },
             ...params

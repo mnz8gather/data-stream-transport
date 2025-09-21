@@ -2,10 +2,10 @@ import { message } from 'antd';
 import { useCreation } from 'ahooks';
 import { useCallback, useState } from 'react';
 import { fetchStreamRequest } from './streamRequest/fetchStream';
-import { axiosXHRStreamRequest } from './streamRequest/axiosXhrStream';
+import { axiosXHRStreamRequest } from './streamRequest/axiosXHRStream';
 import type { Canceler } from 'axios';
 import type { Service as FetchService } from './streamRequest/fetchStream';
-import type { Service as AxiosXHRService } from './streamRequest/axiosXhrStream';
+import type { Service as AxiosXHRService } from './streamRequest/axiosXHRStream';
 import type { AnyParams, RequestEvents, TransformStream } from './streamRequest/type';
 
 type XGSSEFields = 'data';
