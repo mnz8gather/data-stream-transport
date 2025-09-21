@@ -4,4 +4,5 @@ packages:
   - 'http2'
   - 'http2cleartext'
   - 'sse'
+  - 'use-stream-request'
   - 'websocket'

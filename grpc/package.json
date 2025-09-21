@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {},
-  "packageManager": "pnpm@10.10.0",
+  "packageManager": "pnpm@10.17.0",
   "devDependencies": {
-    "@grpc/grpc-js": "^1.13.4",
+    "@grpc/grpc-js": "^1.14.0",
     "@grpc/proto-loader": "^0.8.0",
-    "@types/node": "^24.3.0"
+    "@types/node": "^24.5.2"
   }
 }

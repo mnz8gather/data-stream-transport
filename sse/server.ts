@@ -9,8 +9,14 @@ const server = createServer((req, res) => {
       'Cache-Control': 'no-cache',
     });
 
+    let count = 0;
     // 每秒发送一条消息
     const interval = setInterval(() => {
+      if (count >= 5) {
+        clearInterval(interval);
+        res.end();
+        return;
+      }
       const data = JSON.stringify({
         message: `Hello at ${new Date().toLocaleString('default', {
           hour12: false,
@@ -23,6 +29,7 @@ const server = createServer((req, res) => {
         })}`,
       });
       res.write(`data: ${data}\n\n`);
+      count++;
     }, 1000);
 
     // 客户端断开连接时清理

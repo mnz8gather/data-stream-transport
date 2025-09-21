@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {},
-  "packageManager": "pnpm@10.10.0",
+  "packageManager": "pnpm@10.17.0",
   "devDependencies": {
-    "@types/node": "^24.3.0",
+    "@types/node": "^24.5.2",
     "eventsource": "^4.0.0"
   }
 }
